@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState} from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -13,30 +13,33 @@ const Login = (props) => {
   const [collegeIsValid, setCollegeIsValid] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect(() => {
-    console.log("Effect running");
-    return () => {
-      console.log("Effect Clean Up");
-    };
-  },[enteredPassword])
+  // useEffect(() => {
+  //   console.log("Effect running");
+  //   return () => {
+  //     console.log("Effect Clean Up");
+  //   };
+  // },[enteredPassword])
 
-  useEffect(() => {
-   const indentifier =  setTimeout(() => { 
-       console.log("Checking the form validity!"); 
-       setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length && enteredCollege.trim().length> 6
-    );
-     }, 500);
-    return () => {
-      //clean up function
-      console.log("clean up");
-      clearTimeout(indentifier)
-    }
-  }, [enteredEmail, enteredPassword,enteredCollege]);
+  // useEffect(() => {
+  //  const indentifier =  setTimeout(() => { 
+  //      console.log("Checking the form validity!"); 
+  //      setFormIsValid(
+  //     enteredEmail.includes('@') && enteredPassword.trim().length && enteredCollege.trim().length> 6
+  //   );
+  //    }, 500);
+  //   return () => {
+  //     //clean up function
+  //     console.log("clean up");
+  //     clearTimeout(indentifier)
+  //   }
+  // }, [enteredEmail, enteredPassword,enteredCollege]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
-
+    setFormIsValid(
+      event.target.value.includes("@")
+      && enteredPassword.trim().length > 6
+    );
    };
 
   const passwordChangeHandler = (event) => {
