@@ -14,6 +14,13 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
+    console.log("Effect running");
+    return () => {
+      console.log("Effect Clean Up");
+    };
+  },[enteredPassword])
+
+  useEffect(() => {
    const indentifier =  setTimeout(() => { 
        console.log("Checking the form validity!"); 
        setFormIsValid(
