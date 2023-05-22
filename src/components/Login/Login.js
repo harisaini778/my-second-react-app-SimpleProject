@@ -1,8 +1,9 @@
-import React, { useState,useReducer} from 'react';
+import React, { useState,useReducer,useContext} from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from '../../store/auth-context';
 
 
 const emailReducer = (state,action) => {
@@ -31,6 +32,7 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [enteredCollege, setEnteredCollege] = useState("");
   const [collegeIsValid, setCollegeIsValid] = useState("");
+
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer,
@@ -38,6 +40,8 @@ const Login = (props) => {
       value: "",
       isValid: null,
     });
+  
+  //const[passwordState,dispatchPassword] = useReducer()
   // useEffect(() => {
   //   console.log("Effect running");
   //   return () => {
@@ -66,7 +70,9 @@ const Login = (props) => {
       event.target.value.includes("@")
       && enteredPassword.trim().length > 6
     );
-   };
+  };
+  
+  const authCtx = useContext(AuthContext);
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
@@ -97,7 +103,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, enteredPassword,enteredCollege);
+    authCtx.onLogin(emailState.value, enteredPassword,enteredCollege);
   };
 
   return (
